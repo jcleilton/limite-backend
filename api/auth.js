@@ -1,4 +1,4 @@
-const { authSecret } = require('../.env')
+const { authSecret } = require('../env_file')
 const jwt = require('jwt-simple')
 const bcrypt = require('bcrypt-nodejs')
 
@@ -7,17 +7,16 @@ module.exports = app => {
         if (!req.body.email || !req.body.password) {
             return res.status(400).send('Dados incompletos')
         }
-        const user = await app.db('users').whereRaw("LOWER(email) = LOWER(?)", req.body.email).first()
+        const user = await app.db('competidor').whereRaw("LOWER(email) = LOWER(?)", req.body.email).first()
 
         if (user) {
-            bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
+            bcrypt.compare(req.body.password, user.senha, (err, isMatch) => {
                 if (err || !isMatch) {
                     return res.status(401).send()
                 }
                 const payload = {id: user.id}
                 res.json({
-                    name: user.name,
-                    email: user.email,
+                    competidor: user,
                     token: jwt.encode(payload, authSecret),
                 })
             })
