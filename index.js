@@ -6,8 +6,8 @@ consign().include('./config/passport.js').then('./config/middlewares.js').then('
 
 app.db = db
 
-
-app.listen(3000, () => {
+const porta = process.env.PORT || 3000;
+app.listen(porta, () => {
     console.log('Backend executando...')
 })
 
