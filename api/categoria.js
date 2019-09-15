@@ -7,10 +7,11 @@ module.exports = app => {
                 app.db('categoria')
                 .where({ sexo: user.sexo })
                 // .where({ id_faixa: user.id_faixa })
-                .where('peso_inicial', '<=', user.peso)
                 .where('peso_final', '>=', user.peso)
-                .where('idade_inicial', '<=', user.idade)
+                //.where('peso_final', '>=', user.peso)
                 .where('idade_final', '>=', user.idade)
+                //.where('idade_final', '>=', user.idade)
+                .orderBy('idade_inicial')
                 .then(categ => res.json(categ)).catch(err => res.status(400).json(user))
             } else {
                 res.json('Dados não encontrados!')

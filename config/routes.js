@@ -7,9 +7,8 @@ module.exports = app => {
     .delete(app.api.competidor.remove)
     app.route('/categoria').all(app.config.passport.authenticate())
     .get(app.api.categoria.getCategoria)
+    app.route('/evento').get(app.api.evento.getEvento)
     
     
-
-
 
 }
