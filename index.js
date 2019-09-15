@@ -8,6 +8,6 @@ app.db = db
 
 const porta = process.env.PORT || 3000;
 app.listen(porta, () => {
-    console.log('Backend executando...')
+    console.log(`Backend executando na porta ${porta}...`)
 })
 
