@@ -1,14 +1,13 @@
 module.exports = app => {
-    app.post('/signup', app.api.user.save)
-    app.post('/signin', app.api.auth.signin)
-    app.route('/competidor').all(app.config.passport.authenticate())
-    .get(app.api.competidor.getCompetidores)
-    app.route('/competidor/:id').all(app.config.passport.authenticate())
-    .delete(app.api.competidor.remove)
-    app.route('/categoria').all(app.config.passport.authenticate())
-    .get(app.api.categoria.getCategoria)
-    app.route('/evento').get(app.api.evento.getEvento)
-    
-    
-
+    app.post('/cadastro', app.api.user.save)
+    app.post('/login', app.api.auth.signin)
+    app.route('/pauta').all(app.config.passport.authenticate())
+    .get(app.api.pauta.getPautas)
+    app.route('/pauta/:id').all(app.config.passport.authenticate())
+    .delete(app.api.pauta.remove)
+    app.route('/pauta/:id').all(app.config.passport.authenticate())
+    .put(app.api.pauta.togglePauta)
+    app.route('/pauta').all(app.config.passport.authenticate())
+    .post(app.api.pauta.save)
+    app.get('/recuperarsenha/:email', app.api.user.recuperarSenha)
 }

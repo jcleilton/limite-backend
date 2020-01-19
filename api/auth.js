@@ -7,7 +7,7 @@ module.exports = app => {
         if (!req.body.email || !req.body.password) {
             return res.status(400).send('Dados incompletos')
         }
-        const user = await app.db('competidor').whereRaw("LOWER(email) = LOWER(?)", req.body.email).first()
+        const user = await app.db('usuarios').whereRaw("LOWER(email) = LOWER(?)", req.body.email).first()
 
         if (user) {
             bcrypt.compare(req.body.password, user.senha, (err, isMatch) => {
@@ -16,7 +16,7 @@ module.exports = app => {
                 }
                 const payload = {id: user.id}
                 res.json({
-                    competidor: user,
+                    usuario: { id: user.id, nome: user.nome, email: user.email },
                     token: jwt.encode(payload, authSecret),
                 })
             })
