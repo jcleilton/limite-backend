@@ -73,12 +73,10 @@ module.exports = app => {
     const save = (req, res) => {
         obterHash(req.body.senha, hash => {
             const password = hash
-            const body = req.body
             app.db('usuarios').insert({ 
                 nome: req.body.nome, 
                 email: req.body.email, 
                 senha: password, 
-                sobre_nome: req.body.sobre_nome
             }).then(_ => res.status(204).send()).catch(err => res.status(400).json(err))
         })
     }
